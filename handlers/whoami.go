@@ -26,6 +26,8 @@ func (w *whoami) ServeHTTP(rw http.ResponseWriter, r *http.Request) {
 	addCORS(&rw)
 
 	if r.Method == http.MethodGet {
+		rw.Header().Add("Content-Type", "application/json")
+
 		d := userInfo{
 			IP:       getIp(r),
 			Language: getLanguage(r),
