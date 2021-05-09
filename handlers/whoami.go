@@ -57,5 +57,5 @@ func getUserAgent(r *http.Request) string {
 }
 
 func addCORS(w *http.ResponseWriter) {
-	(*w).Header().Set("Access-Control-Allow-Origin", "https://freecodecamp.org")
+	(*w).Header().Set("Access-Control-Allow-Origin", "https://www.freecodecamp.org")
 }
