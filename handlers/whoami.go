@@ -23,6 +23,7 @@ func NewWhoami(l *log.Logger) *whoami {
 
 func (w *whoami) ServeHTTP(rw http.ResponseWriter, r *http.Request) {
 	w.l.Printf("%s whoami", r.Method)
+	addCORS(r)
 
 	if r.Method == http.MethodGet {
 		d := userInfo{
@@ -37,10 +38,6 @@ func (w *whoami) ServeHTTP(rw http.ResponseWriter, r *http.Request) {
 			http.Error(rw, "Failed to decode JSON", http.StatusInternalServerError)
 		}
 		return
-	}
-
-	if r.Method == http.MethodOptions {
-		addCORS(r)
 	}
 
 	rw.WriteHeader(http.StatusMethodNotAllowed)
