@@ -23,7 +23,7 @@ func NewWhoami(l *log.Logger) *whoami {
 
 func (w *whoami) ServeHTTP(rw http.ResponseWriter, r *http.Request) {
 	w.l.Printf("%s whoami", r.Method)
-	addCORS(r)
+	addCORS(&rw)
 
 	if r.Method == http.MethodGet {
 		d := userInfo{
@@ -56,6 +56,6 @@ func getUserAgent(r *http.Request) string {
 	return r.Header.Get("User-Agent")
 }
 
-func addCORS(r *http.Request) {
-	r.Header.Add("Access-Control-Allow-Origin", "https://freecodecamp.org")
+func addCORS(w *http.ResponseWriter) {
+	(*w).Header().Set("Access-Control-Allow-Origin", "https://freecodecamp.org")
 }
