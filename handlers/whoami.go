@@ -25,8 +25,6 @@ func (w *whoami) ServeHTTP(rw http.ResponseWriter, r *http.Request) {
 	w.l.Printf("%s whoami", r.Method)
 
 	if r.Method == http.MethodGet {
-		addCORS(r)
-
 		d := userInfo{
 			IP:       getIp(r),
 			Language: getLanguage(r),
@@ -39,6 +37,10 @@ func (w *whoami) ServeHTTP(rw http.ResponseWriter, r *http.Request) {
 			http.Error(rw, "Failed to decode JSON", http.StatusInternalServerError)
 		}
 		return
+	}
+
+	if r.Method == http.MethodOptions {
+		addCORS(r)
 	}
 
 	rw.WriteHeader(http.StatusMethodNotAllowed)
